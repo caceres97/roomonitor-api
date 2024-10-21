@@ -28,8 +28,8 @@ $ npm run start:dev
 ```
 
 ## Docs
-
-- [En caso el proyecto este corriendo](http:localhost:3000)
+Disponible en localhost:3000/docs
+- [Enlace directo cuando el correcto esta corriendo](http:localhost:3000/docs)
 
 ## Stay in touch
 
