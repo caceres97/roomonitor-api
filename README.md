@@ -5,13 +5,13 @@ Code Challenge by Angel Caceres
 ## Aclaraciones
 El proyecto esta configurado con Posgresql, pero puede ser utilizado con cualquier db de prisma.
 
-## Installation
+## Instalación
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Correr app
 
 ```bash
 Como primer paso cambia de nombre el archivo .env.example a .env
