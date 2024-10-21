@@ -6,11 +6,20 @@ import {
   Param,
   Delete,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiKeyGuard } from 'src/guards/apikey.guard';
 
+@ApiTags('Rooms')
+@UseGuards(ApiKeyGuard)
+@ApiHeader({
+  name: 'api-key',
+  description: 'auth',
+})
 @Controller('rooms')
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
