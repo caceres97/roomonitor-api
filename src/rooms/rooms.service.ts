@@ -7,6 +7,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class RoomsService {
   constructor(private prisma: PrismaService) {}
 
+  /**
+   * Creates a new room, optionally with an array of amenity IDs
+   * @param createRoomDto - the data for the new room
+   * @returns an array of objects containing the new room data and the newly-created room-amenity connections
+   */
   async create(createRoomDto: CreateRoomDto) {
     const creationData: any[] = [];
     const { amenitiesIds } = createRoomDto;
@@ -30,6 +35,11 @@ export class RoomsService {
     return creationData;
   }
 
+  /**
+   * Finds all rooms, each with its associated amenities
+   * @returns an array of room objects, each containing a `RoomAmenities` array with
+   * associated `amenity` objects
+   */
   findAll() {
     return this.prisma.room.findMany({
       include: {
@@ -38,6 +48,13 @@ export class RoomsService {
     });
   }
 
+  /**
+   * Finds a single room by ID, including its associated amenities
+   * @param id the id of the room to find
+   * @returns a single room object, containing a `RoomAmenities` array with
+   * associated `amenity` objects
+   * @throws {Prisma.NotFoundError} if no room with the given ID exists
+   */
   findOne(id: string) {
     return this.prisma.room.findFirstOrThrow({
       where: { id },
@@ -47,6 +64,13 @@ export class RoomsService {
     });
   }
 
+  /**
+   * Updates a room and its associated amenities.
+   * If the room did not already have the specified amenities, they are created.
+   * @param id the id of the room to update
+   * @param updateRoomDto the data to update the room with
+   * @returns an array of updated room objects and/or created amenities and room-amenities connections
+   */
   async update(id: string, updateRoomDto: UpdateRoomDto) {
     const updatingData: any[] = [];
     const { amenitiesIds } = updateRoomDto;
@@ -69,6 +93,11 @@ export class RoomsService {
     return updatingData;
   }
 
+  /**
+   * Removes a room and its associated amenities.
+   * @param id the id of the room to remove
+   * @returns the deleted room object, including its associated amenities
+   */
   remove(id: string) {
     return this.prisma.room.delete({
       where: { id },
