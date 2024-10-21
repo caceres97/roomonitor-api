@@ -5,6 +5,9 @@ Code Challenge by Angel Caceres
 ## Aclaraciones
 El proyecto esta configurado con Posgresql, pero puede ser utilizado con cualquier db de prisma.
 
+## Autenticación
+username: angel, password: 1324
+
 ## Instalación
 
 ```bash
