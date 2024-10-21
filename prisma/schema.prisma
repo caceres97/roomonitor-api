@@ -14,14 +14,47 @@ datasource db {
 }
 
 model Room {
-  id    String   @id @default(uuid())
-  title String
-  type  RoomType @default(SINGLE)
+  id            String   @id @default(uuid())
+  title         String
+  type          RoomType @default(SINGLE)
+  hasRoomonitor Boolean // Si tiene un dispositivo roomonitor
+  maxGuests     Int      @map("max_guests")
+  minGuests     Int      @default(1) @map("min_guests")
+  isAvailable   Boolean  @default(true) @map("is_available")
+
+  RoomAmenities RoomAmenities[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt() @map("updated_at")
 
   @@map("rooms")
+}
+
+model Amenity {
+  id   String @id @default(uuid())
+  name String
+
+  RoomAmenities RoomAmenities[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  @@map("amenities")
+}
+
+model RoomAmenities {
+  id String @id @default(uuid())
+
+  amenity   Amenity @relation(fields: [amenityId], references: [id])
+  amenityId String  @map("amenity_id")
+
+  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  roomId String @map("room_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  @@map("room_amenities")
 }
 
 // Podrian ser muchas mas pero seleccione las más comunes
